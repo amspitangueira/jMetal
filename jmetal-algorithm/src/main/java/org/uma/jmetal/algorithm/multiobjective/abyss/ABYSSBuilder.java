@@ -32,6 +32,7 @@ public class ABYSSBuilder implements AlgorithmBuilder {
   private int archiveSize;//Maximum size of the external archive
   private int maxEvaluations;//Maximum number of getEvaluations to carry out
   private CrowdingDistanceArchive archive;
+
   public ABYSSBuilder(DoubleProblem problem,Archive archive){
     this.populationSize = 20;
     this.maxEvaluations = 25000;
