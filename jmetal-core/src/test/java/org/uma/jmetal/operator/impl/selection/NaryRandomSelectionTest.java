@@ -36,18 +36,18 @@ import static org.mockito.Mockito.mock;
  * @author Antonio J. Nebro
  * @version 1.0
  */
-public class RandomSelectionTest {
+public class NaryRandomSelectionTest {
   @Rule
   public ExpectedException exception = ExpectedException.none();
 
-  private RandomSelection selection ;
+  private NaryRandomSelection selection ;
 
   @Test
   public void shouldExecuteRaiseAnExceptionIfTheSolutionListIsNull() {
     exception.expect(JMetalException.class);
     exception.expectMessage(containsString("The solution list is null"));
 
-    selection = new RandomSelection() ;
+    selection = new NaryRandomSelection() ;
     selection.execute(null) ;
   }
 
@@ -56,7 +56,7 @@ public class RandomSelectionTest {
     exception.expect(JMetalException.class);
     exception.expectMessage(containsString("The solution list is empty"));
 
-    selection = new RandomSelection() ;
+    selection = new NaryRandomSelection() ;
     List<DoubleSolution> list = new ArrayList<>() ;
 
     selection.execute(list) ;
@@ -64,7 +64,7 @@ public class RandomSelectionTest {
 
   @Test
   public void shouldDefaultConstructorReturnASingleSolution() {
-    selection = new RandomSelection() ;
+    selection = new NaryRandomSelection() ;
 
     int result = (int)ReflectionTestUtils.getField(selection, "numberOfSolutionsToBeReturned");
     int expectedResult = 1 ;
@@ -74,7 +74,7 @@ public class RandomSelectionTest {
   @Test
   public void shouldNonDefaultConstructorReturnTheCorrectNumberOfSolutions() {
     int solutionsToBeReturned = 4 ;
-    selection = new RandomSelection(solutionsToBeReturned) ;
+    selection = new NaryRandomSelection(solutionsToBeReturned) ;
 
     int result = (int)ReflectionTestUtils.getField(selection, "numberOfSolutionsToBeReturned");
     assertEquals(solutionsToBeReturned, result) ;
@@ -86,7 +86,7 @@ public class RandomSelectionTest {
     exception.expectMessage(containsString("The solution list size (1) is less than " +
     "the number of requested solutions (2)"));
 
-    selection = new RandomSelection(2) ;
+    selection = new NaryRandomSelection(2) ;
     List<Solution> list = new ArrayList<>(1) ;
     list.add(mock(Solution.class)) ;
 
@@ -99,7 +99,7 @@ public class RandomSelectionTest {
     exception.expectMessage(containsString("The solution list size (2) is less than " +
         "the number of requested solutions (4)"));
 
-    selection = new RandomSelection(4) ;
+    selection = new NaryRandomSelection(4) ;
     List<Solution> list = new ArrayList<>(2) ;
     list.add(mock(Solution.class)) ;
     list.add(mock(Solution.class)) ;
@@ -109,7 +109,7 @@ public class RandomSelectionTest {
 
   @Test
   public void shouldExecuteReturnTheSolutionInTheListIfTheListContainsASolution() {
-    selection = new RandomSelection(1) ;
+    selection = new NaryRandomSelection(1) ;
     List<IntegerSolution> list = new ArrayList<>(2) ;
     IntegerSolution solution = mock(IntegerSolution.class) ;
     list.add(solution) ;
@@ -120,7 +120,7 @@ public class RandomSelectionTest {
 
   @Test
   public void shouldExecuteReturnTheSolutionSInTheListIfTheListContainsTwoSolutions() {
-    selection = new RandomSelection(2) ;
+    selection = new NaryRandomSelection(2) ;
     List<BinarySolution> list = new ArrayList<>(2) ;
     BinarySolution solution1 = mock(BinarySolution.class) ;
     BinarySolution solution2 = mock(BinarySolution.class) ;
@@ -139,7 +139,7 @@ public class RandomSelectionTest {
     int listSize = 20 ;
     int solutionsToBeReturned = 4 ;
 
-    selection = new RandomSelection(solutionsToBeReturned) ;
+    selection = new NaryRandomSelection(solutionsToBeReturned) ;
     List<BinarySolution> list = new ArrayList<>(listSize) ;
     for (int i = 0; i < listSize; i++) {
       list.add(mock(BinarySolution.class));
@@ -164,7 +164,7 @@ public class RandomSelectionTest {
       list.add(solution[i]);
     }
 
-    selection = new RandomSelection(solutionsToBeReturned) ;
+    selection = new NaryRandomSelection(solutionsToBeReturned) ;
 
     List<IntegerSolution> result = (List<IntegerSolution>) selection.execute(list);
     assertTrue(result.contains(solution[0]));
