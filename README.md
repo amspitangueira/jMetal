@@ -26,7 +26,7 @@ If you are interested in contributing with your ideas and comments, please take 
 ##Components
 The current development version provides:
 
-* Algorithms: NSGA-II, NSGA-III (to be tested), SMPSO, GDE3, IBEA, MOEA/D (variants: MOEA/D-DE, MOEA/D-DRA, Constrained MOEA/D), SPEA2, PESA2, AbYSS, MOCell, RandomSearch.
+* Algorithms: NSGA-II, NSGA-III (to be tested), SMPSO, GDE3, IBEA, MOEA/D (variants: MOEA/D-DE, MOEA/D-DRA, Constrained MOEA/D), SPEA2, PESA2, AbYSS, MOCell, RandomSearch, SMS-EMOA
 * Encodings: Binary, Real, Integer, Permutation, Integer+Double
 * Crossover operators: SBXCrossover, SinglePointCrossover, DifferentialEvolutionCrossover, IntegerSBXCrossover, BLXAlphaCrossover, HUXCrossover
 * Mutation operators: PolynomialMutation, SingleRandomMutation, BitFlipMutation, IntegerPolynomialMutation, UniformMutation, NonUniformMutation
