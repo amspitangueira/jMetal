@@ -17,6 +17,7 @@ software. Some of the ideas we are elaborating are:
  * Application of clean code guidelines - “Clean code: A Handbook of Agile Software Craftsmanship" (Robert C. Martin)
 * Algorithm templates
 * Parallelism support
+* Algorithm measures
 * Maven is used as the tool for development, testing, packaging and deployment.
 
 If you are interested in contributing with your ideas and comments, please take a look the current discussions in the [Issues section](https://github.com/jMetal/jMetal/issues).
