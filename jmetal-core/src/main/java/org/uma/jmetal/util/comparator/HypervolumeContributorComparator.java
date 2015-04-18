@@ -22,8 +22,8 @@ import java.util.Comparator;
  * @author Antonio J. Nebro
  * @version 1.0
  *
- * Compares two solutions according to the crowding distance attribute. The higher
- * the distance the better
+ * Compares two solutions according to hypervolume contribution attribute. The higher
+ * the value the better
  */
 public class HypervolumeContributorComparator implements Comparator<Solution> {
   private final HypervolumeContribution hvContribution = new HypervolumeContribution() ;
@@ -59,10 +59,10 @@ public class HypervolumeContributorComparator implements Comparator<Solution> {
         contribution2 = (double) hvContribution.getAttribute(solution2);
       }
 
-      if (contribution1 < contribution2) {
+      if (contribution1 > contribution2) {
         result = -1;
       } else  if (contribution1 > contribution2) {
-        result = 1;
+        result = +1;
       } else {
         result = 0;
       }
