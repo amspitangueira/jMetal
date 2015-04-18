@@ -12,10 +12,11 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-package org.uma.jmetal.util.front.imp;
+package org.uma.jmetal.util.front.util;
 
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.front.Front;
+import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.point.Point;
 import org.uma.jmetal.util.point.impl.PointSolution;
 import org.uma.jmetal.util.point.impl.PointUtils;
