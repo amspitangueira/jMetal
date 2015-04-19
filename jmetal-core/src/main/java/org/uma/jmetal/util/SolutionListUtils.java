@@ -291,14 +291,12 @@ public class SolutionListUtils {
 
     return resultList ;
   }
-  
 
-  
   /**
    * Returns a matrix with the euclidean distance between each pair of solutions in the population.
    * Distances are measured in the objective space
    * @param solutionSet
-   * @return
+   * @return A distance matrix
    */
   public static  <S extends Solution> double [][] distanceMatrix(List<S> solutionSet) {
      //The matrix of distances
@@ -308,9 +306,8 @@ public class SolutionListUtils {
        for (int j = i + 1; j < solutionSet.size(); j++){
          distance[i][j] = SolutionUtils.distanceBetweenObjectives(solutionSet.get(i),solutionSet.get(j));                
          distance[j][i] = distance[i][j];            
-       } // for
-     } // for        
+       }
+     }
      return distance;
-  } // distanceMatrix
-  
+  }
 }
