@@ -255,6 +255,89 @@ public class EpsilonTest {
     assertEquals(0.5, epsilon.execute(listA, listB), EPSILON);
   }
 
+  /**
+   *  Given a front with points:
+   0.1    1
+   0.2    0.9
+   0.3    0.8
+   0.4    0.7
+   0.5    0.6
+   0.6    0.5
+   0.7    0.4
+   0.8    0.3
+   0.9    0.2
+   1    0.1
+   *   and a Pareto front with points
+   0.1    1.1
+   0.2    1
+   0.3    0.9
+   0.4    0.8
+   0.5    0.7
+   0.6    0.6
+   0.7    0.5
+   0.8    0.4
+   0.9    0.3
+   1    0.2
+
+   * the value the epsilon indicator should be 0.1
+   */
+  @Test
+  public void shouldExecuteReturnTheCorrectValueCaseD() {
+    int numberOfPoints = 10 ;
+    int numberOfDimensions = 2 ;
+    Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
+    Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
+
+    Point point1 = new ArrayPoint(new double[] {0.1, 1.0}) ;
+    Point point2 = new ArrayPoint(new double[] {0.2, 0.9}) ;
+    Point point3 = new ArrayPoint(new double[] {0.3, 0.8}) ;
+    Point point4 = new ArrayPoint(new double[] {0.4, 0.7}) ;
+    Point point5 = new ArrayPoint(new double[] {0.5, 0.6}) ;
+    Point point6 = new ArrayPoint(new double[] {0.6, 0.5}) ;
+    Point point7 = new ArrayPoint(new double[] {0.7, 0.5}) ;
+    Point point8 = new ArrayPoint(new double[] {0.8, 0.3}) ;
+    Point point9 = new ArrayPoint(new double[] {0.9, 0.2}) ;
+    Point point10 = new ArrayPoint(new double[] {1.0, 0.1}) ;
+
+    paretoFront.setPoint(0, point1);
+    paretoFront.setPoint(1, point2);
+    paretoFront.setPoint(2, point3);
+    paretoFront.setPoint(3, point4);
+    paretoFront.setPoint(4, point5);
+    paretoFront.setPoint(5, point6);
+    paretoFront.setPoint(6, point7);
+    paretoFront.setPoint(7, point8);
+    paretoFront.setPoint(8, point9);
+    paretoFront.setPoint(9, point10);
+
+    Point point11 = new ArrayPoint(new double[] {0.1, 1.1}) ;
+    Point point12 = new ArrayPoint(new double[] {0.2, 1.0}) ;
+    Point point13 = new ArrayPoint(new double[] {0.3, 0.9}) ;
+    Point point14 = new ArrayPoint(new double[] {0.4, 0.8}) ;
+    Point point15 = new ArrayPoint(new double[] {0.5, 0.7}) ;
+    Point point16 = new ArrayPoint(new double[] {0.6, 0.6}) ;
+    Point point17 = new ArrayPoint(new double[] {0.7, 0.5}) ;
+    Point point18 = new ArrayPoint(new double[] {0.8, 0.4}) ;
+    Point point19 = new ArrayPoint(new double[] {0.9, 0.3}) ;
+    Point point20 = new ArrayPoint(new double[] {1.0, 0.2}) ;
+
+    frontApproximation.setPoint(0, point11);
+    frontApproximation.setPoint(1, point12);
+    frontApproximation.setPoint(2, point13);
+    frontApproximation.setPoint(3, point14);
+    frontApproximation.setPoint(4, point15);
+    frontApproximation.setPoint(5, point16);
+    frontApproximation.setPoint(6, point17);
+    frontApproximation.setPoint(7, point18);
+    frontApproximation.setPoint(8, point19);
+    frontApproximation.setPoint(9, point20);
+
+    List<PointSolution> listA = FrontUtils.convertFrontToSolutionList(frontApproximation) ;
+    List<PointSolution> listB = FrontUtils.convertFrontToSolutionList(paretoFront) ;
+
+    assertEquals(0.1, epsilon.execute(listA, listB), EPSILON);
+  }
+
   @Test
   public void shouldGetNameReturnTheCorrectValue() {
     assertEquals("EPSILON", epsilon.getName());
