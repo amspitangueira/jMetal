@@ -26,6 +26,7 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
+import org.uma.jmetal.util.front.util.FrontUtils;
 import org.uma.jmetal.util.naming.impl.SimpleDescribedEntity;
 
 import java.util.List;
@@ -35,12 +36,13 @@ import java.util.List;
  * Zitzler, E. Thiele, L. Laummanns, M., Fonseca, C., and Grunert da Fonseca. V
  * (2003): Performance Assessment of Multiobjective Optimizers: An Analysis and
  * Review. The code is the a Java version of the original metric implementation
- * by Eckart Zitzler. It can be used also as a command line program just by
- * typing $java org.uma.jmetal.qualityindicator.impl.Epsilon <solutionFrontFile>
- * <trueFrontFile> <getNumberOfObjectives>
+ * by Eckart Zitzler.
+ *
+ * Original code: http://www.tik.ee.ethz.ch/sop/pisa/
  */
 
 public class Epsilon extends SimpleDescribedEntity implements QualityIndicator {
+  private boolean normalizeFrontBeforeApplyingTheIndicator = false ;
 
   public Epsilon() {
     super ("EPSILON", "Additive Epsilon indicator") ;
@@ -74,6 +76,10 @@ public class Epsilon extends SimpleDescribedEntity implements QualityIndicator {
     return super.getName() ;
   }
 
+  public void normalizeFronts() {
+    normalizeFrontBeforeApplyingTheIndicator = true ;
+  }
+
   /**
    * Returns the value of the epsilon indicator.
    *
@@ -82,7 +88,7 @@ public class Epsilon extends SimpleDescribedEntity implements QualityIndicator {
    * @return the value of the epsilon indicator
    * @throws org.uma.jmetal.util.JMetalException
    */
-  private double epsilon(Front front, Front referenceFront) throws JMetalException {
+  private double epsilon(Front front, Front paretoFront) throws JMetalException {
     int i, j, k;
     double eps, epsJ = 0.0, epsK = 0.0, epsTemp;
 
@@ -90,11 +96,32 @@ public class Epsilon extends SimpleDescribedEntity implements QualityIndicator {
 
     eps = Double.MIN_VALUE;
 
-    for (i = 0; i < referenceFront.getNumberOfPoints(); i++) {
-      for (j = 0; j < front.getNumberOfPoints(); j++) {
+    Front approximatedFront ;
+    Front referenceParetoFront ;
+
+    if (normalizeFrontBeforeApplyingTheIndicator) {
+      double[] maximumValue;
+      double[] minimumValue;
+
+      maximumValue = FrontUtils.getMaximumValues(paretoFront);
+      minimumValue = FrontUtils.getMinimumValues(paretoFront);
+
+      approximatedFront = FrontUtils.getNormalizedFront(front,
+          maximumValue,
+          minimumValue);
+      referenceParetoFront = FrontUtils.getNormalizedFront(paretoFront,
+          maximumValue,
+          minimumValue);
+    } else {
+      approximatedFront = front ;
+      referenceParetoFront = paretoFront ;
+    }
+
+    for (i = 0; i < referenceParetoFront.getNumberOfPoints(); i++) {
+      for (j = 0; j < approximatedFront.getNumberOfPoints(); j++) {
         for (k = 0; k < numberOfObjectives; k++) {
-          epsTemp = front.getPoint(j).getDimensionValue(k)
-              - referenceFront.getPoint(i).getDimensionValue(k);
+          epsTemp = approximatedFront.getPoint(j).getDimensionValue(k)
+              - referenceParetoFront.getPoint(i).getDimensionValue(k);
           if (k == 0) {
             epsK = epsTemp;
           } else if (epsK < epsTemp) {
