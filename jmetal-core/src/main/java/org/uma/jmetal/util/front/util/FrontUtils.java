@@ -156,23 +156,30 @@ public class FrontUtils {
     double[] minimumValues = getMinimumValues(front) ;
 
     return getNormalizedFront(front, maximumValues, minimumValues) ;
-    /*
-    Front normalizedFront = new ArrayFront(front) ;
-    int numberOfPointDimensions = front.getPoint(0).getNumberOfDimensions() ;
+  }
 
-    for (int i = 0; i < front.getNumberOfPoints(); i++) {
-      for (int j = 0; j < numberOfPointDimensions; j++) {
-        if ((maximumValues[j] - minimumValues[j]) == 0) {
-          throw new JMetalException("Maximum and minimum values of index " + j + " "
-              + "are the same: " + maximumValues[j]);
-        }
-
-        normalizedFront.getPoint(i).setDimensionValue(j, (front.getPoint(i).getDimensionValue(j)
-            - minimumValues[j]) / (maximumValues[j] - minimumValues[j]));
-      }
+  /**
+   * This method receives a front and returns a normalized front according to a reference front
+   *
+   * @param front A front of points.
+   * @param referenceFront
+   * @return the normalized front
+   */
+  public static Front getNormalizedFront(Front front, Front referenceFront) {
+    if (front == null) {
+      throw new JMetalException("The front is null") ;
+    } else if (front.getNumberOfPoints() == 0) {
+      throw new JMetalException("The front is empty") ;
+    } else if (referenceFront == null) {
+      throw new JMetalException("The reference front is empty") ;
+    } else if (referenceFront.getNumberOfPoints() == 0) {
+      throw new JMetalException("The reference front is empty") ;
     }
-    return normalizedFront;
-    */
+
+    double[] maximumValues = getMaximumValues(referenceFront) ;
+    double[] minimumValues = getMinimumValues(referenceFront) ;
+
+    return getNormalizedFront(front, maximumValues, minimumValues) ;
   }
 
 
