@@ -140,6 +140,43 @@ public class FrontUtils {
   }
 
   /**
+   * This method receives a front and returns a normalized front.
+   *
+   * @param front        A front of points.
+   * @return the normalized front
+   */
+  public static Front getNormalizedFront(Front front) {
+    if (front == null) {
+      throw new JMetalException("The front is null") ;
+    } else if (front.getNumberOfPoints() == 0) {
+      throw new JMetalException("The front is empty") ;
+    }
+
+    double[] maximumValues = getMaximumValues(front) ;
+    double[] minimumValues = getMinimumValues(front) ;
+
+    return getNormalizedFront(front, maximumValues, minimumValues) ;
+    /*
+    Front normalizedFront = new ArrayFront(front) ;
+    int numberOfPointDimensions = front.getPoint(0).getNumberOfDimensions() ;
+
+    for (int i = 0; i < front.getNumberOfPoints(); i++) {
+      for (int j = 0; j < numberOfPointDimensions; j++) {
+        if ((maximumValues[j] - minimumValues[j]) == 0) {
+          throw new JMetalException("Maximum and minimum values of index " + j + " "
+              + "are the same: " + maximumValues[j]);
+        }
+
+        normalizedFront.getPoint(i).setDimensionValue(j, (front.getPoint(i).getDimensionValue(j)
+            - minimumValues[j]) / (maximumValues[j] - minimumValues[j]));
+      }
+    }
+    return normalizedFront;
+    */
+  }
+
+
+  /**
    * Gets the distance between a point and the nearest one in a front. If a distance equals to 0
    * is found, that means that the point is in the front, so it is excluded
    *
