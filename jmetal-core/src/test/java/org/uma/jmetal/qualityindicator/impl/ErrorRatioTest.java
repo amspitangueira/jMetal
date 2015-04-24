@@ -21,10 +21,10 @@ import org.uma.jmetal.problem.DoubleProblem;
 import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
-import org.uma.jmetal.util.point.Point;
-import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +93,7 @@ public class ErrorRatioTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
     point1.setDimensionValue(2, -1.0);
@@ -111,12 +111,12 @@ public class ErrorRatioTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
     point1.setDimensionValue(2, -1.0);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 3.0);
     point2.setDimensionValue(1, 5.0);
     point2.setDimensionValue(2, -2.0);
@@ -138,13 +138,13 @@ public class ErrorRatioTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 1.5);
     point1.setDimensionValue(1, 4.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 1.5);
     point2.setDimensionValue(1, 2.0);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 2.0);
     point3.setDimensionValue(1, 1.5);
 
@@ -152,13 +152,13 @@ public class ErrorRatioTest {
     frontApproximation.setPoint(1, point2);
     frontApproximation.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.0);
     point4.setDimensionValue(1, 3.0);
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 1.5);
     point5.setDimensionValue(1, 2.0);
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 2.0);
     point6.setDimensionValue(1, 1.5);
 

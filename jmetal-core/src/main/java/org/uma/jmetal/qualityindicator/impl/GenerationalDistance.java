@@ -24,10 +24,13 @@ package org.uma.jmetal.qualityindicator.impl;
 import org.uma.jmetal.qualityindicator.QualityIndicator;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.extremevalues.impl.FrontExtremeValues;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
 import org.uma.jmetal.util.naming.impl.SimpleDescribedEntity;
+import org.uma.jmetal.util.normalization.impl.NormalizeFront;
 
 import java.util.List;
 
@@ -47,7 +50,7 @@ public class GenerationalDistance extends SimpleDescribedEntity implements Quali
   }
 
   @Override
-  public double execute(Front paretoFrontApproximation, Front trueParetoFront) {
+  public double execute(List<Criteria> paretoFrontApproximation, List<Criteria> trueParetoFront) {
     if (paretoFrontApproximation == null) {
       throw new JMetalException("The pareto front approximation object is null") ;
     } else if (trueParetoFront == null) {
@@ -57,18 +60,6 @@ public class GenerationalDistance extends SimpleDescribedEntity implements Quali
     return generationalDistance(paretoFrontApproximation, trueParetoFront) ;
   }
 
-  @Override
-  public double execute(List<? extends Solution> paretoFrontApproximation,
-      List<? extends Solution> trueParetoFront) {
-
-    if (paretoFrontApproximation == null) {
-      throw new JMetalException("The pareto front approximation list is null") ;
-    } else if (trueParetoFront == null) {
-      throw new JMetalException("The pareto front list is null");
-    }
-
-    return this.generationalDistance(new ArrayFront(paretoFrontApproximation), new ArrayFront(trueParetoFront)) ;
-  }
 
   /**
    * Returns the generational distance value for a given front
@@ -76,28 +67,24 @@ public class GenerationalDistance extends SimpleDescribedEntity implements Quali
    * @param front           The front
    * @param trueParetoFront The true pareto front
    */
-  public double generationalDistance(Front front, Front trueParetoFront) {
-    double[] maximumValue;
-    double[] minimumValue;
-    Front normalizedFront;
-    Front normalizedParetoFront;
+  public double generationalDistance(List<Criteria> front, List<Criteria> trueParetoFront) {
+    List<Double> maximumValue;
+    List<Double> minimumValue;
+    List<Criteria> normalizedFront;
+    List<Criteria> normalizedParetoFront;
 
     // STEP 1. Obtain the maximum and minimum values of the Pareto front
-    maximumValue = FrontUtils.getMaximumValues(trueParetoFront);
-    minimumValue = FrontUtils.getMinimumValues(trueParetoFront);
+    maximumValue = new FrontExtremeValues().findHighestValues(trueParetoFront);
+    minimumValue = new FrontExtremeValues().findLowestValues(trueParetoFront);
 
     // STEP 2. Get the normalized front and true Pareto fronts
-    normalizedFront = FrontUtils.getNormalizedFront(front,
-        maximumValue,
-        minimumValue);
-    normalizedParetoFront = FrontUtils.getNormalizedFront(trueParetoFront,
-        maximumValue,
-        minimumValue);
+    normalizedFront = new NormalizeFront().normalize(front, maximumValue, minimumValue);
+    normalizedParetoFront = new NormalizeFront().normalize(trueParetoFront,maximumValue,minimumValue);
 
     // STEP 3. Sum the distances between each point of the front and the
     // nearest point in the true Pareto front
     double sum = 0.0;
-    for (int i = 0; i < front.getNumberOfPoints(); i++) {
+    for (int i = 0; i < front.size(); i++) {
       sum += Math.pow(FrontUtils.distanceToClosestPoint(normalizedFront.getPoint(i),
               normalizedParetoFront), POW);
     }

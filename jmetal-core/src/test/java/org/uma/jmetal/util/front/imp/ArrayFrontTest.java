@@ -24,10 +24,10 @@ import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.solution.IntegerSolution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
+import org.uma.jmetal.util.criteria.impl.LexicographicalPointComparator;
 import org.uma.jmetal.util.front.Front;
-import org.uma.jmetal.util.point.Point;
-import org.uma.jmetal.util.point.impl.ArrayPoint;
-import org.uma.jmetal.util.point.impl.LexicographicalPointComparator;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -150,10 +150,10 @@ public class ArrayFrontTest {
     int pointDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, pointDimensions) ;
 
-    Point point1 = new ArrayPoint(pointDimensions) ;
+    Criteria point1 = new ArrayCriteria(pointDimensions) ;
     point1.setDimensionValue(0, 0.1323);
     point1.setDimensionValue(1, -30.1323);
-    Point point2 = new ArrayPoint(pointDimensions) ;
+    Criteria point2 = new ArrayCriteria(pointDimensions) ;
     point2.setDimensionValue(0, +2342342.24232);
     point2.setDimensionValue(1, -23423423425.234);
 
@@ -193,7 +193,7 @@ public class ArrayFrontTest {
     exception.expect(JMetalException.class);
     exception.expectMessage(containsString("The index value is negative"));
 
-    front.setPoint(-1, new ArrayPoint(1));
+    front.setPoint(-1, new ArrayCriteria(1));
   }
 
   @Test
@@ -206,7 +206,7 @@ public class ArrayFrontTest {
     exception.expectMessage(containsString("The index value (3) is greater than the number of "
         + "points (1)"));
 
-    front.setPoint(3, new ArrayPoint(1));
+    front.setPoint(3, new ArrayCriteria(1));
   }
 
   @Test
@@ -214,10 +214,10 @@ public class ArrayFrontTest {
     int numberOfPoints = 1 ;
     int numberOfPointDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, numberOfPointDimensions) ;
-    Point point = new ArrayPoint(1) ;
+    Criteria point = new ArrayCriteria(1) ;
     front.setPoint(0, point);
 
-    Point newPoint = front.getPoint(0) ;
+    Criteria newPoint = front.getPoint(0) ;
     assertSame(point, newPoint);
   }
 
@@ -251,7 +251,7 @@ public class ArrayFrontTest {
     int numberOfPoints = 1 ;
     int numberOfPointDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, numberOfPointDimensions) ;
-    Point point = new ArrayPoint(1) ;
+    Criteria point = new ArrayCriteria(1) ;
     front.setPoint(0, point);
 
     assertSame(point, front.getPoint(0));
@@ -291,10 +291,10 @@ public class ArrayFrontTest {
     Front front1 = new ArrayFront(numberOfPoints, pointDimensions) ;
     Front front2 = new ArrayFront(numberOfPoints, pointDimensions) ;
 
-    Point point1 = new ArrayPoint(pointDimensions) ;
+    Criteria point1 = new ArrayCriteria(pointDimensions) ;
     point1.setDimensionValue(0, 0.1323);
     point1.setDimensionValue(1, -30.1323);
-    Point point2 = new ArrayPoint(pointDimensions) ;
+    Criteria point2 = new ArrayCriteria(pointDimensions) ;
     point2.setDimensionValue(0, 0.1323);
     point2.setDimensionValue(1, -30.1323);
 
@@ -328,10 +328,10 @@ public class ArrayFrontTest {
     Front front1 = new ArrayFront(numberOfPoints, pointDimensions) ;
     Front front2 = new ArrayFront(numberOfPoints, pointDimensions) ;
 
-    Point point1 = new ArrayPoint(pointDimensions) ;
+    Criteria point1 = new ArrayCriteria(pointDimensions) ;
     point1.setDimensionValue(0, 0.1323);
     point1.setDimensionValue(1, -3.1323);
-    Point point2 = new ArrayPoint(pointDimensions) ;
+    Criteria point2 = new ArrayCriteria(pointDimensions) ;
     point2.setDimensionValue(0, 0.1323);
     point2.setDimensionValue(1, -30.1323);
 
@@ -347,13 +347,13 @@ public class ArrayFrontTest {
     int pointDimensions = 2 ;
     Front front1 = new ArrayFront(numberOfPoints, pointDimensions) ;
 
-    Point point1 = new ArrayPoint(pointDimensions) ;
+    Criteria point1 = new ArrayCriteria(pointDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
-    Point point2 = new ArrayPoint(pointDimensions) ;
+    Criteria point2 = new ArrayCriteria(pointDimensions) ;
     point2.setDimensionValue(0, 8.0);
     point2.setDimensionValue(1, 80.0);
-    Point point3 = new ArrayPoint(pointDimensions) ;
+    Criteria point3 = new ArrayCriteria(pointDimensions) ;
     point3.setDimensionValue(0, 5.0);
     point3.setDimensionValue(1, 50.0);
 

@@ -11,10 +11,10 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.uma.jmetal.util.point.impl;
+package org.uma.jmetal.util.criteria.impl;
 
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.point.Point;
+import org.uma.jmetal.util.criteria.Criteria;
 
 /**
  * @author Antonio J. Nebro
@@ -29,7 +29,7 @@ public class PointUtils {
    * @param b A point
    * @return The euclidean distance between the points
    */
-  public static double euclideanDistance(Point a, Point b) {
+  public static double euclideanDistance(Criteria a, Criteria b) {
     if (a == null) {
       throw new JMetalException("The first point is null") ;
     } else if (b == null) {

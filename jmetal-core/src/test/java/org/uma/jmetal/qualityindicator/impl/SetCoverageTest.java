@@ -19,12 +19,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
+import org.uma.jmetal.util.criteria.impl.PointSolution;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
-import org.uma.jmetal.util.point.Point;
-import org.uma.jmetal.util.point.impl.ArrayPoint;
-import org.uma.jmetal.util.point.impl.PointSolution;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +92,7 @@ public class SetCoverageTest {
     Front frontA = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front frontB = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
     point1.setDimensionValue(2, -1.0);
@@ -119,7 +119,7 @@ public class SetCoverageTest {
     Front frontA = new ArrayFront(1, numberOfDimensions);
     Front frontB = new ArrayFront(0, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
 
@@ -139,10 +139,10 @@ public class SetCoverageTest {
     Front frontA = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front frontB = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2.0);
     point1.setDimensionValue(1, 3.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 1.0);
     point2.setDimensionValue(1, 2.0);
 
@@ -165,13 +165,13 @@ public class SetCoverageTest {
     Front frontA = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front frontB = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.0);
     point1.setDimensionValue(1, 6.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 2.0);
     point2.setDimensionValue(1, 3.0);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 4.0);
     point3.setDimensionValue(1, 2.0);
 
@@ -179,13 +179,13 @@ public class SetCoverageTest {
     frontA.setPoint(1, point2);
     frontA.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.0);
     point4.setDimensionValue(1, 7.0);
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 2.0);
     point5.setDimensionValue(1, 3.0);
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 3.5);
     point6.setDimensionValue(1, 1.0);
 
@@ -209,13 +209,13 @@ public class SetCoverageTest {
     Front frontA = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front frontB = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.0);
     point1.setDimensionValue(1, 6.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 2.0);
     point2.setDimensionValue(1, 3.0);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 4.0);
     point3.setDimensionValue(1, 2.0);
 
@@ -223,13 +223,13 @@ public class SetCoverageTest {
     frontA.setPoint(1, point2);
     frontA.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.0);
     point4.setDimensionValue(1, 7.0);
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 2.5);
     point5.setDimensionValue(1, 3.0);
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 5.0);
     point6.setDimensionValue(1, 2.5);
 
@@ -251,13 +251,13 @@ public class SetCoverageTest {
     Front frontA = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front frontB = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.0);
     point1.setDimensionValue(1, 6.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 2.0);
     point2.setDimensionValue(1, 3.0);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 4.0);
     point3.setDimensionValue(1, 2.0);
 
@@ -265,13 +265,13 @@ public class SetCoverageTest {
     frontA.setPoint(1, point2);
     frontA.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.0);
     point4.setDimensionValue(1, 7.0);
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 2.5);
     point5.setDimensionValue(1, 3.0);
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 5.0);
     point6.setDimensionValue(1, 2.5);
 

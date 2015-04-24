@@ -19,12 +19,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
+import org.uma.jmetal.util.criteria.impl.PointSolution;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
-import org.uma.jmetal.util.point.Point;
-import org.uma.jmetal.util.point.impl.ArrayPoint;
-import org.uma.jmetal.util.point.impl.PointSolution;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +92,7 @@ public class EpsilonTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
     point1.setDimensionValue(2, -1.0);
@@ -114,10 +114,10 @@ public class EpsilonTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2.0);
     point1.setDimensionValue(1, 3.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 1.0);
     point2.setDimensionValue(1, 2.0);
 
@@ -138,13 +138,13 @@ public class EpsilonTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 1.5);
     point1.setDimensionValue(1, 4.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 2.0);
     point2.setDimensionValue(1, 3.0);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 3.0);
     point3.setDimensionValue(1, 2.0);
 
@@ -152,13 +152,13 @@ public class EpsilonTest {
     frontApproximation.setPoint(1, point2);
     frontApproximation.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.0);
     point4.setDimensionValue(1, 3.0);
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 1.5);
     point5.setDimensionValue(1, 2.0);
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 2.0);
     point6.setDimensionValue(1, 1.5);
 
@@ -180,13 +180,13 @@ public class EpsilonTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 1.5);
     point1.setDimensionValue(1, 4.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 1.5);
     point2.setDimensionValue(1, 2.0);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 2.0);
     point3.setDimensionValue(1, 1.5);
 
@@ -194,13 +194,13 @@ public class EpsilonTest {
     frontApproximation.setPoint(1, point2);
     frontApproximation.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.0);
     point4.setDimensionValue(1, 3.0);
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 1.5);
     point5.setDimensionValue(1, 2.0);
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 2.0);
     point6.setDimensionValue(1, 1.5);
 
@@ -221,13 +221,13 @@ public class EpsilonTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 1.5);
     point1.setDimensionValue(1, 4.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 1.5);
     point2.setDimensionValue(1, 2.0);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 2.0);
     point3.setDimensionValue(1, 1.5);
 
@@ -235,13 +235,13 @@ public class EpsilonTest {
     frontApproximation.setPoint(1, point2);
     frontApproximation.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.0);
     point4.setDimensionValue(1, 3.0);
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 1.5);
     point5.setDimensionValue(1, 2.0);
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 2.0);
     point6.setDimensionValue(1, 1.5);
 
@@ -288,16 +288,16 @@ public class EpsilonTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(new double[] {0.1, 1.0}) ;
-    Point point2 = new ArrayPoint(new double[] {0.2, 0.9}) ;
-    Point point3 = new ArrayPoint(new double[] {0.3, 0.8}) ;
-    Point point4 = new ArrayPoint(new double[] {0.4, 0.7}) ;
-    Point point5 = new ArrayPoint(new double[] {0.5, 0.6}) ;
-    Point point6 = new ArrayPoint(new double[] {0.6, 0.5}) ;
-    Point point7 = new ArrayPoint(new double[] {0.7, 0.5}) ;
-    Point point8 = new ArrayPoint(new double[] {0.8, 0.3}) ;
-    Point point9 = new ArrayPoint(new double[] {0.9, 0.2}) ;
-    Point point10 = new ArrayPoint(new double[] {1.0, 0.1}) ;
+    Criteria point1 = new ArrayCriteria(new double[] {0.1, 1.0}) ;
+    Criteria point2 = new ArrayCriteria(new double[] {0.2, 0.9}) ;
+    Criteria point3 = new ArrayCriteria(new double[] {0.3, 0.8}) ;
+    Criteria point4 = new ArrayCriteria(new double[] {0.4, 0.7}) ;
+    Criteria point5 = new ArrayCriteria(new double[] {0.5, 0.6}) ;
+    Criteria point6 = new ArrayCriteria(new double[] {0.6, 0.5}) ;
+    Criteria point7 = new ArrayCriteria(new double[] {0.7, 0.5}) ;
+    Criteria point8 = new ArrayCriteria(new double[] {0.8, 0.3}) ;
+    Criteria point9 = new ArrayCriteria(new double[] {0.9, 0.2}) ;
+    Criteria point10 = new ArrayCriteria(new double[] {1.0, 0.1}) ;
 
     paretoFront.setPoint(0, point1);
     paretoFront.setPoint(1, point2);
@@ -310,16 +310,16 @@ public class EpsilonTest {
     paretoFront.setPoint(8, point9);
     paretoFront.setPoint(9, point10);
 
-    Point point11 = new ArrayPoint(new double[] {0.1, 1.1}) ;
-    Point point12 = new ArrayPoint(new double[] {0.2, 1.0}) ;
-    Point point13 = new ArrayPoint(new double[] {0.3, 0.9}) ;
-    Point point14 = new ArrayPoint(new double[] {0.4, 0.8}) ;
-    Point point15 = new ArrayPoint(new double[] {0.5, 0.7}) ;
-    Point point16 = new ArrayPoint(new double[] {0.6, 0.6}) ;
-    Point point17 = new ArrayPoint(new double[] {0.7, 0.5}) ;
-    Point point18 = new ArrayPoint(new double[] {0.8, 0.4}) ;
-    Point point19 = new ArrayPoint(new double[] {0.9, 0.3}) ;
-    Point point20 = new ArrayPoint(new double[] {1.0, 0.2}) ;
+    Criteria point11 = new ArrayCriteria(new double[] {0.1, 1.1}) ;
+    Criteria point12 = new ArrayCriteria(new double[] {0.2, 1.0}) ;
+    Criteria point13 = new ArrayCriteria(new double[] {0.3, 0.9}) ;
+    Criteria point14 = new ArrayCriteria(new double[] {0.4, 0.8}) ;
+    Criteria point15 = new ArrayCriteria(new double[] {0.5, 0.7}) ;
+    Criteria point16 = new ArrayCriteria(new double[] {0.6, 0.6}) ;
+    Criteria point17 = new ArrayCriteria(new double[] {0.7, 0.5}) ;
+    Criteria point18 = new ArrayCriteria(new double[] {0.8, 0.4}) ;
+    Criteria point19 = new ArrayCriteria(new double[] {0.9, 0.3}) ;
+    Criteria point20 = new ArrayCriteria(new double[] {1.0, 0.2}) ;
 
     frontApproximation.setPoint(0, point11);
     frontApproximation.setPoint(1, point12);

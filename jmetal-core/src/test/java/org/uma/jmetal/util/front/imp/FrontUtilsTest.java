@@ -17,11 +17,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
+import org.uma.jmetal.util.criteria.impl.PointSolution;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.util.FrontUtils;
-import org.uma.jmetal.util.point.Point;
-import org.uma.jmetal.util.point.impl.ArrayPoint;
-import org.uma.jmetal.util.point.impl.PointSolution;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point = new ArrayPoint(numberOfDimensions) ;
+    Criteria point = new ArrayCriteria(numberOfDimensions) ;
     point.setDimensionValue(0, 10.0);
     point.setDimensionValue(1, 12.0);
 
@@ -80,15 +80,15 @@ public class FrontUtilsTest {
     int numberOfDimensions = 3 ;
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
     point1.setDimensionValue(2, -1.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 8.0);
     point2.setDimensionValue(1, 80.0);
     point2.setDimensionValue(2, 0.32);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 5.0);
     point3.setDimensionValue(1, 50.0);
     point3.setDimensionValue(2, 3.0);
@@ -126,7 +126,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point = new ArrayPoint(numberOfDimensions) ;
+    Criteria point = new ArrayCriteria(numberOfDimensions) ;
     point.setDimensionValue(0, 10.0);
     point.setDimensionValue(1, 12.0);
 
@@ -143,15 +143,15 @@ public class FrontUtilsTest {
     int numberOfDimensions = 3 ;
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
     point1.setDimensionValue(2, -1.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 8.0);
     point2.setDimensionValue(1, 80.0);
     point2.setDimensionValue(2, 0.32);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 5.0);
     point3.setDimensionValue(1, 50.0);
     point3.setDimensionValue(2, 3.0);
@@ -241,7 +241,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point = new ArrayPoint(numberOfDimensions) ;
+    Criteria point = new ArrayCriteria(numberOfDimensions) ;
     point.setDimensionValue(0, 2);
     point.setDimensionValue(1, 4);
 
@@ -270,7 +270,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point = new ArrayPoint(numberOfDimensions) ;
+    Criteria point = new ArrayCriteria(numberOfDimensions) ;
     point.setDimensionValue(0, 2);
     point.setDimensionValue(1, 4);
 
@@ -294,10 +294,10 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2);
     point1.setDimensionValue(1, 4);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, -2);
     point2.setDimensionValue(1, 3);
 
@@ -319,7 +319,7 @@ public class FrontUtilsTest {
     exception.expect(JMetalException.class);
     exception.expectMessage(containsString("The front is null"));
 
-    Point point = new ArrayPoint(1) ;
+    Criteria point = new ArrayCriteria(1) ;
 
     FrontUtils.distanceToNearestPoint(point, null) ;
   }
@@ -339,7 +339,7 @@ public class FrontUtilsTest {
     exception.expect(JMetalException.class);
     exception.expectMessage(containsString("The front is empty"));
 
-    Point point = new ArrayPoint(1) ;
+    Criteria point = new ArrayCriteria(1) ;
     Front front = new ArrayFront(0, 1) ;
 
     FrontUtils.distanceToNearestPoint(point, front) ;
@@ -350,7 +350,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 1 ;
 
-    Point point = new ArrayPoint(numberOfDimensions) ;
+    Criteria point = new ArrayCriteria(numberOfDimensions) ;
     point.setDimensionValue(0, 2);
     point.setDimensionValue(1, 4);
 
@@ -365,11 +365,11 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 1 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2);
     point1.setDimensionValue(1, 4);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 6);
     point2.setDimensionValue(1, 7);
 
@@ -387,11 +387,11 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 2 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2);
     point1.setDimensionValue(1, 4);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 6);
     point2.setDimensionValue(1, 7);
 
@@ -407,7 +407,7 @@ public class FrontUtilsTest {
     exception.expect(JMetalException.class);
     exception.expectMessage(containsString("The front is null"));
 
-    Point point = new ArrayPoint(1) ;
+    Criteria point = new ArrayCriteria(1) ;
 
     FrontUtils.distanceToClosestPoint(point, null) ;
   }
@@ -427,7 +427,7 @@ public class FrontUtilsTest {
     exception.expect(JMetalException.class);
     exception.expectMessage(containsString("The front is empty"));
 
-    Point point = new ArrayPoint(1) ;
+    Criteria point = new ArrayCriteria(1) ;
     Front front = new ArrayFront(0, 1) ;
 
     FrontUtils.distanceToClosestPoint(point, front) ;
@@ -438,7 +438,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 1 ;
 
-    Point point = new ArrayPoint(numberOfDimensions) ;
+    Criteria point = new ArrayCriteria(numberOfDimensions) ;
     point.setDimensionValue(0, 2);
     point.setDimensionValue(1, 4);
 
@@ -453,11 +453,11 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 1 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2);
     point1.setDimensionValue(1, 4);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 6);
     point2.setDimensionValue(1, 7);
 
@@ -475,11 +475,11 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 2 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2);
     point1.setDimensionValue(1, 4);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 6);
     point2.setDimensionValue(1, 7);
 
@@ -499,11 +499,11 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 2 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2);
     point1.setDimensionValue(1, 4);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 6);
     point2.setDimensionValue(1, 7);
 
@@ -511,7 +511,7 @@ public class FrontUtilsTest {
     front.setPoint(0, point1);
     front.setPoint(1, point2);
 
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 5);
     point3.setDimensionValue(1, 1);
 
@@ -527,11 +527,11 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 2 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 6);
     point1.setDimensionValue(1, 7);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 2);
     point2.setDimensionValue(1, 4);
 
@@ -539,7 +539,7 @@ public class FrontUtilsTest {
     front.setPoint(0, point1);
     front.setPoint(1, point2);
 
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 5);
     point3.setDimensionValue(1, 1);
 
@@ -572,7 +572,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 1 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.5);
     point1.setDimensionValue(1, 0.5);
 
@@ -593,7 +593,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 1 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.0);
     point1.setDimensionValue(1, 1.0);
 
@@ -614,7 +614,7 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 1 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 3.0);
     point1.setDimensionValue(1, -2.0);
 
@@ -636,16 +636,16 @@ public class FrontUtilsTest {
     int numberOfDimensions = 2 ;
     int numberOfPoints = 4 ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.1);
     point1.setDimensionValue(1, 0.9);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 0.2);
     point2.setDimensionValue(1, 0.8);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 0.3);
     point3.setDimensionValue(1, 0.7);
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 0.4);
     point4.setDimensionValue(1, 0.6);
 
@@ -698,7 +698,7 @@ public class FrontUtilsTest {
 
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions) ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.1);
     point1.setDimensionValue(1, 0.9);
 
@@ -722,17 +722,17 @@ public class FrontUtilsTest {
 
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions) ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.1);
     point1.setDimensionValue(1, 0.9);
     point1.setDimensionValue(2, -2.23);
     point1.setDimensionValue(3, 0.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 0.2);
     point2.setDimensionValue(1, 0.8);
     point2.setDimensionValue(2, 25.08);
     point2.setDimensionValue(3, -232420.8);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 0.3);
     point3.setDimensionValue(1, 0.7);
     point3.setDimensionValue(2, 32342);
@@ -783,7 +783,7 @@ public class FrontUtilsTest {
 
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions) ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.1);
     point1.setDimensionValue(1, 0.9);
 
@@ -807,17 +807,17 @@ public class FrontUtilsTest {
 
     Front front = new ArrayFront(numberOfPoints, numberOfDimensions) ;
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 0.1);
     point1.setDimensionValue(1, 0.9);
     point1.setDimensionValue(2, -2.23);
     point1.setDimensionValue(3, 0.0);
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 0.2);
     point2.setDimensionValue(1, 0.8);
     point2.setDimensionValue(2, 25.08);
     point2.setDimensionValue(3, -232420.8);
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 0.3);
     point3.setDimensionValue(1, 0.7);
     point3.setDimensionValue(2, 32342);

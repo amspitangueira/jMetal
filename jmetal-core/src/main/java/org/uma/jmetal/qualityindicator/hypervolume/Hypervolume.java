@@ -21,8 +21,10 @@
 
 package org.uma.jmetal.qualityindicator.hypervolume;
 
+import java.util.List;
+
 import org.uma.jmetal.qualityindicator.QualityIndicator;
-import org.uma.jmetal.util.front.Front;
+import org.uma.jmetal.util.criteria.Criteria;
 
 /**
  * This class implements the hypervolume indicator. The code is the a Java version
@@ -33,5 +35,5 @@ import org.uma.jmetal.util.front.Front;
  * pp. 257-271, 1999.
  */
 public interface Hypervolume extends QualityIndicator {
-  double[] computeHypervolumeContribution(Front front) ;
+  double[] computeHypervolumeContribution(List<Criteria> front) ;
 }

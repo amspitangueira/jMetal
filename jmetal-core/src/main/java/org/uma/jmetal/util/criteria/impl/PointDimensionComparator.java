@@ -19,10 +19,10 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.uma.jmetal.util.point.impl;
+package org.uma.jmetal.util.criteria.impl;
 
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.point.Point;
+import org.uma.jmetal.util.criteria.Criteria;
 
 import java.util.Comparator;
 
@@ -30,7 +30,7 @@ import java.util.Comparator;
  * This class implements the <code>Comparator</code> interface. It is used
  * to compare two points according the value of a particular dimension.
  */
-public class PointDimensionComparator implements Comparator<Point> {
+public class PointDimensionComparator implements Comparator<Criteria> {
 
   /**
    * Stores the value of the index to compare
@@ -57,7 +57,7 @@ public class PointDimensionComparator implements Comparator<Point> {
    * @return -1 if o1 < o1, 1 if o1 > o2 or 0 in other case.
    */
   @Override
-  public int compare(Point pointOne, Point pointTwo) {
+  public int compare(Criteria pointOne, Criteria pointTwo) {
     if (pointOne ==  null) {
       throw new JMetalException("PointOne is null") ;
     } else if (pointTwo == null) {
