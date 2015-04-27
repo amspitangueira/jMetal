@@ -2,14 +2,13 @@ package org.uma.jmetal.qualityindicator.hypervolume.impl;
 
 import org.uma.jmetal.qualityindicator.hypervolume.Hypervolume;
 import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.criteria.Criteria;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
 import org.uma.jmetal.util.naming.impl.SimpleDescribedEntity;
 
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
