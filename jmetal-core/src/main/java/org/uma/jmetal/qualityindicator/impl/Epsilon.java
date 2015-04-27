@@ -24,10 +24,10 @@ package org.uma.jmetal.qualityindicator.impl;
 import org.uma.jmetal.qualityindicator.QualityIndicator;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.front.Front;
-import org.uma.jmetal.util.front.imp.ArrayFront;
-import org.uma.jmetal.util.front.util.FrontUtils;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.extremevalues.impl.FrontExtremeValues;
 import org.uma.jmetal.util.naming.impl.SimpleDescribedEntity;
+import org.uma.jmetal.util.normalization.impl.NormalizeFront;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class Epsilon extends SimpleDescribedEntity implements QualityIndicator {
   }
 
   @Override
-  public double execute(Front paretoFrontApproximation, Front trueParetoFront) {
+  public double execute(List<Criteria> paretoFrontApproximation, List<Criteria> trueParetoFront) {
     if (paretoFrontApproximation == null) {
       throw new JMetalException("The pareto front approximation object is null") ;
     } else if (trueParetoFront == null) {
@@ -59,18 +59,6 @@ public class Epsilon extends SimpleDescribedEntity implements QualityIndicator {
     return epsilon(paretoFrontApproximation, trueParetoFront) ;
   }
 
-  @Override
-  public double execute(List<? extends Solution> paretoFrontApproximation,
-      List<? extends Solution> trueParetoFront) {
-
-    if (paretoFrontApproximation == null) {
-      throw new JMetalException("The pareto front approximation list is null") ;
-    } else if (trueParetoFront == null) {
-      throw new JMetalException("The pareto front list is null");
-    }
-
-    return this.execute(new ArrayFront(paretoFrontApproximation), new ArrayFront(trueParetoFront)) ;
-  }
 
   @Override public String getName() {
     return super.getName() ;
@@ -88,40 +76,36 @@ public class Epsilon extends SimpleDescribedEntity implements QualityIndicator {
    * @return the value of the epsilon indicator
    * @throws org.uma.jmetal.util.JMetalException
    */
-  private double epsilon(Front front, Front paretoFront) throws JMetalException {
+  private double epsilon(List<Criteria> front, List<Criteria> paretoFront) throws JMetalException {
     int i, j, k;
     double eps, epsJ = 0.0, epsK = 0.0, epsTemp;
 
-    int numberOfObjectives = front.getPointDimensions() ;
+    int numberOfObjectives = front.size() ;
 
     eps = Double.MIN_VALUE;
 
-    Front approximatedFront ;
-    Front referenceParetoFront ;
+    List<Criteria> approximatedFront ;
+    List<Criteria> referenceParetoFront ;
 
     if (normalizeFrontBeforeApplyingTheIndicator) {
-      double[] maximumValue;
-      double[] minimumValue;
+      List<Double> maximumValue;
+      List<Double> minimumValue;
 
-      maximumValue = FrontUtils.getMaximumValues(paretoFront);
-      minimumValue = FrontUtils.getMinimumValues(paretoFront);
-
-      approximatedFront = FrontUtils.getNormalizedFront(front,
-          maximumValue,
-          minimumValue);
-      referenceParetoFront = FrontUtils.getNormalizedFront(paretoFront,
-          maximumValue,
-          minimumValue);
+      maximumValue = new FrontExtremeValues().findHighestValues(paretoFront);
+      minimumValue = new FrontExtremeValues().findLowestValues(paretoFront);
+      
+      approximatedFront = (new NormalizeFront()).normalize(front, maximumValue, minimumValue);
+      referenceParetoFront = (new NormalizeFront()).normalize(paretoFront, maximumValue, minimumValue);
     } else {
       approximatedFront = front ;
       referenceParetoFront = paretoFront ;
     }
 
-    for (i = 0; i < referenceParetoFront.getNumberOfPoints(); i++) {
-      for (j = 0; j < approximatedFront.getNumberOfPoints(); j++) {
+    for (i = 0; i < referenceParetoFront.size(); i++) {
+      for (j = 0; j < approximatedFront.size(); j++) {
         for (k = 0; k < numberOfObjectives; k++) {
-          epsTemp = approximatedFront.getPoint(j).getDimensionValue(k)
-              - referenceParetoFront.getPoint(i).getDimensionValue(k);
+          epsTemp = approximatedFront.get(j).getDimensionValue(k)
+              - referenceParetoFront.get(i).getDimensionValue(k);
           if (k == 0) {
             epsK = epsTemp;
           } else if (epsK < epsTemp) {

@@ -16,10 +16,10 @@
 //  This class is based on the code of the wfg group (http://www.wfg.csse.uwa.edu.au/hypervolume/)
 //  Copyright (C) 2010 Lyndon While, Lucas Bradstreet.
 
-package org.uma.jmetal.util.point.impl;
+package org.uma.jmetal.util.criteria.impl;
 
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.point.Point;
+import org.uma.jmetal.util.criteria.Criteria;
 
 import java.util.Comparator;
 
@@ -29,7 +29,7 @@ import java.util.Comparator;
  * @author Antonio J. Nebro
  * @version 1.0
  */
-public class PointComparator implements Comparator<Point> {
+public class PointComparator implements Comparator<Criteria> {
   private boolean maximizing;
 
   public PointComparator(boolean maximizing) {
@@ -44,7 +44,7 @@ public class PointComparator implements Comparator<Point> {
    * @return -1 if o1 < o1, 1 if o1 > o2 or 0 in other case.
    */
   @Override
-  public int compare(Point pointOne, Point pointTwo) {
+  public int compare(Criteria pointOne, Criteria pointTwo) {
     if (pointOne ==  null) {
       throw new JMetalException("PointOne is null") ;
     } else if (pointTwo == null) {

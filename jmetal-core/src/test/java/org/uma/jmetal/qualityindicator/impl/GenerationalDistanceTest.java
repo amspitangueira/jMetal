@@ -19,10 +19,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
-import org.uma.jmetal.util.point.Point;
-import org.uma.jmetal.util.point.impl.ArrayPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +93,7 @@ public class GenerationalDistanceTest {
     Front frontApproximation = new ArrayFront(numberOfPoints, numberOfDimensions);
     Front paretoFront = new ArrayFront(numberOfPoints, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 10.0);
     point1.setDimensionValue(1, 12.0);
 
@@ -109,15 +109,15 @@ public class GenerationalDistanceTest {
     Front frontApproximation = new ArrayFront(3, numberOfDimensions);
     Front paretoFront = new ArrayFront(4, numberOfDimensions);
 
-    Point point1 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point1 = new ArrayCriteria(numberOfDimensions) ;
     point1.setDimensionValue(0, 2.5);
     point1.setDimensionValue(1, 9.0);
 
-    Point point2 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point2 = new ArrayCriteria(numberOfDimensions) ;
     point2.setDimensionValue(0, 3.0);
     point2.setDimensionValue(1, 6.0);
 
-    Point point3 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point3 = new ArrayCriteria(numberOfDimensions) ;
     point3.setDimensionValue(0, 5.0);
     point3.setDimensionValue(1, 4.0);
 
@@ -125,19 +125,19 @@ public class GenerationalDistanceTest {
     frontApproximation.setPoint(1, point2);
     frontApproximation.setPoint(2, point3);
 
-    Point point4 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point4 = new ArrayCriteria(numberOfDimensions) ;
     point4.setDimensionValue(0, 1.5);
     point4.setDimensionValue(1, 10.0);
 
-    Point point5 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point5 = new ArrayCriteria(numberOfDimensions) ;
     point5.setDimensionValue(0, 2.0);
     point5.setDimensionValue(1, 8.0);
 
-    Point point6 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point6 = new ArrayCriteria(numberOfDimensions) ;
     point6.setDimensionValue(0, 3.0);
     point6.setDimensionValue(1, 6.0);
 
-    Point point7 = new ArrayPoint(numberOfDimensions) ;
+    Criteria point7 = new ArrayCriteria(numberOfDimensions) ;
     point7.setDimensionValue(0, 4.0);
     point7.setDimensionValue(1, 4.0);
 

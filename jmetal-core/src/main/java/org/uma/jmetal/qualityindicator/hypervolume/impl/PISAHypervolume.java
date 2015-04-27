@@ -2,7 +2,7 @@ package org.uma.jmetal.qualityindicator.hypervolume.impl;
 
 import org.uma.jmetal.qualityindicator.hypervolume.Hypervolume;
 import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
@@ -31,12 +31,9 @@ public class PISAHypervolume extends SimpleDescribedEntity implements Hypervolum
   }
 
   @Override
-  public double execute(Front paretoFrontApproximation, Front trueParetoFront) {
-    if (paretoFrontApproximation == null) {
-      throw new JMetalException("The pareto front approximation object is null") ;
-    } else if (trueParetoFront == null) {
-      throw new JMetalException("The pareto front object is null");
-    }
+  public double[] computeHypervolumeContribution(List<Criteria> front) {
+    return new double[0];
+  }
 
     return hypervolume(paretoFrontApproximation, trueParetoFront) ;
   }
@@ -221,31 +218,5 @@ public class PISAHypervolume extends SimpleDescribedEntity implements Hypervolum
 
   @Override public String getDescription() {
     return super.getDescription() ;
-  }
-
-  @Override public double[] computeHypervolumeContribution(Front front) {
-    int numberOfObjectives = front.getPointDimensions() ;
-
-    double[][] arrayFront = FrontUtils.convertFrontToArray(front) ;
-    double[] contributions = new double[front.getNumberOfPoints()];
-
-    double[][] frontSubset = new double[arrayFront.length - 1][arrayFront[0].length];
-    LinkedList<double[]> frontCopy = new LinkedList<double[]>();
-    Collections.addAll(frontCopy, arrayFront);
-    double[][] totalFront = frontCopy.toArray(frontSubset);
-    double totalVolume =
-        calculateHypervolume(totalFront, totalFront.length, numberOfObjectives);
-    for (int i = 0; i < arrayFront.length; i++) {
-      double[] evaluatedPoint = frontCopy.remove(i);
-      frontSubset = frontCopy.toArray(frontSubset);
-
-      double hv = calculateHypervolume(frontSubset, frontSubset.length, numberOfObjectives);
-      double contribution = totalVolume - hv;
-      contributions[i] = contribution;
-      // put point back
-      frontCopy.add(i, evaluatedPoint);
-    }
-
-    return contributions;
   }
 }

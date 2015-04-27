@@ -26,8 +26,8 @@ import org.uma.jmetal.util.SolutionListUtils;
 import org.uma.jmetal.util.archive.BoundedArchive;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.jmetal.util.comparator.HypervolumeContributorComparator;
-import org.uma.jmetal.util.point.Point;
-import org.uma.jmetal.util.point.impl.ArrayPoint;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class FastHypervolumeArchive <S extends Solution> extends AbstractBoundedArchive<S> {
 
-  public Point referencePoint;
+  public Criteria referencePoint;
 
 
   private Comparator<Solution> hvContributionComparator;
@@ -51,7 +51,7 @@ public class FastHypervolumeArchive <S extends Solution> extends AbstractBounded
    */
   public FastHypervolumeArchive(int maxSize, int numberOfObjectives) {
     super(maxSize);
-    referencePoint = new ArrayPoint(numberOfObjectives);
+    referencePoint = new ArrayCriteria(numberOfObjectives);
     for (int i = 0; i < numberOfObjectives; i++) {
       referencePoint.setDimensionValue(i, Double.MAX_VALUE);
     }

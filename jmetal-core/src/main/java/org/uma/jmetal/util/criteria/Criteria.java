@@ -10,26 +10,22 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
 
-package org.uma.jmetal.util.front;
+package org.uma.jmetal.util.criteria;
 
-import org.uma.jmetal.util.point.Point;
-
-import java.io.FileNotFoundException;
-import java.io.Serializable;
-import java.util.Comparator;
+import java.util.List;
 
 /**
- * A front is a list of points
+ * Interface representing a point
  *
  * @author Antonio J. Nebro
+ * @author Juan J. Durillo (Modification from Point to Criteria)
  * @version 1.0
  */
-public interface Front extends Serializable {
-  public void readFrontFromFile(String fileName) throws FileNotFoundException;
-  public int getNumberOfPoints() ;
-  public int getPointDimensions() ;
-  public Point getPoint(int index) ;
-  public void setPoint(int index, Point point) ;
-  public void sort(Comparator<Point> comparator) ;
+public interface Criteria extends List<Double> {
+  public int getNumberOfDimensions();
+  public List<Double> getValues() ;
+  public double getDimensionValue(int index) ;
+  public void setDimensionValue(int index, double value) ;
 }

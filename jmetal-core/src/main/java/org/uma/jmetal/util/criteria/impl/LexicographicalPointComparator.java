@@ -19,10 +19,10 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package org.uma.jmetal.util.point.impl;
+package org.uma.jmetal.util.criteria.impl;
 
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.point.Point;
+import org.uma.jmetal.util.criteria.Criteria;
 
 import java.util.Comparator;
 
@@ -31,7 +31,7 @@ import java.util.Comparator;
  * This class implements the Comparator interface for comparing tow points.
  * The order used is lexicographical order.
  */
-public class LexicographicalPointComparator implements Comparator<Point> {
+public class LexicographicalPointComparator implements Comparator<Criteria> {
 
   /**
    * The compare method compare the objects o1 and o2.
@@ -41,7 +41,7 @@ public class LexicographicalPointComparator implements Comparator<Point> {
    * @return The following value: -1 if point1 < point2, 1 if point1 > point2 or 0 in other case.
    */
   @Override
-  public int compare(Point pointOne, Point pointTwo) {
+  public int compare(Criteria pointOne, Criteria pointTwo) {
     if (pointOne ==  null) {
       throw new JMetalException("PointOne is null") ;
     } else if (pointTwo == null) {
