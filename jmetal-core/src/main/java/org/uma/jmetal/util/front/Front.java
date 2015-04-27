@@ -27,7 +27,6 @@ import java.util.Comparator;
  */
 public interface Front extends Serializable {
   public void readFrontFromFile(String fileName) throws FileNotFoundException;
- // public void createFrontFromAListOfSolutions(List<Solution> solutionList) ;
   public int getNumberOfPoints() ;
   public int getPointDimensions() ;
   public Point getPoint(int index) ;

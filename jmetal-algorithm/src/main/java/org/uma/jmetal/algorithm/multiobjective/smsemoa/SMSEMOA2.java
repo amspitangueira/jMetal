@@ -5,26 +5,18 @@ import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
 import org.uma.jmetal.problem.Problem;
-import org.uma.jmetal.qualityindicator.impl.Hypervolume;
+import org.uma.jmetal.qualityindicator.hypervolume.Hypervolume;
 import org.uma.jmetal.solution.Solution;
-import org.uma.jmetal.util.comparator.HypervolumeContributorComparator;
-import org.uma.jmetal.util.front.Front;
-import org.uma.jmetal.util.front.imp.ArrayFront;
-import org.uma.jmetal.util.front.util.FrontUtils;
-import org.uma.jmetal.util.point.Point;
 import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
-import org.uma.jmetal.util.solutionattribute.impl.HypervolumeContribution;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by ajnebro on 17/4/15.
  */
-public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, List<S>> {
+public class SMSEMOA2<S extends Solution> extends AbstractGeneticAlgorithm<S, List<S>> {
   protected final int maxEvaluations;
   protected final int populationSize;
   protected final double offset ;
@@ -38,9 +30,9 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
   /**
    * Constructor
    */
-  public SMSEMOA(Problem<S> problem, int maxEvaluations, int populationSize, double offset,
+  public SMSEMOA2(Problem<S> problem, int maxEvaluations, int populationSize, double offset,
       CrossoverOperator<List<S>, List<S>> crossoverOperator, MutationOperator<S> mutationOperator,
-      SelectionOperator<List<S>, S> selectionOperator) {
+      SelectionOperator<List<S>, S> selectionOperator, Hypervolume hypervolume) {
     super() ;
     this.problem = problem;
     this.maxEvaluations = maxEvaluations;
@@ -52,7 +44,7 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
     this.mutationOperator = mutationOperator;
     this.selectionOperator = selectionOperator;
 
-    hypervolume = new Hypervolume() ;
+    this.hypervolume = hypervolume ;
   }
 
   @Override protected void initProgress() {
@@ -116,7 +108,7 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
     Ranking<S> ranking = computeRanking(jointPopulation);
     List<S> lastSubfront = ranking.getSubfront(ranking.getNumberOfSubfronts()-1) ;
 
-    lastSubfront = computeHypervolumeContribution(lastSubfront, jointPopulation) ;
+    ////lastSubfront = computeHypervolumeContribution(lastSubfront, jointPopulation) ;
 
     List<S> resultPopulation = new ArrayList<>() ;
     for (int i = 0; i < ranking.getNumberOfSubfronts()-1; i++) {
@@ -142,7 +134,7 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
 
     return ranking;
   }
-
+/*
   private List<S> computeHypervolumeContribution(List<S> lastFront, List<S> solutionList) {
     if (lastFront.size() > 1) {
       Front subFront = new ArrayFront((lastFront)) ;
@@ -161,7 +153,7 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
         offsets[i] = offset / (maximumValues[i] - minimumValues[i]);
       }
       // STEP 3. Inverse the pareto front. This is needed because the original
-      // metric by Zitzler is for maximization problem
+      //metric by Zitzler is for maximization problem
       Front invertedFront = FrontUtils.getInvertedFront(normalizedFront);
 
       // shift away from origin, so that boundary points also get a contribution > 0
@@ -185,7 +177,7 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
     }
     return lastFront ;
   }
-
+*/
   /**
    * Calculates how much hypervolume each point dominates exclusively. The points
    * have to be transformed beforehand, to accommodate the assumptions of Zitzler's
@@ -194,6 +186,7 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
    * @param front transformed objective values
    * @return HV contributions
    */
+  /*
   private double[] hvContributions(double[][] front) {
     int numberOfObjectives = problem.getNumberOfObjectives();
     double[] contributions = new double[front.length];
@@ -215,4 +208,5 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
     }
     return contributions;
   }
+  */
 }

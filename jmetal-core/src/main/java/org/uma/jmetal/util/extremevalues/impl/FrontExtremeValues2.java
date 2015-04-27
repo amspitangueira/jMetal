@@ -1,36 +1,32 @@
 package org.uma.jmetal.util.extremevalues.impl;
 
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.extremevalues.ExtremeValuesFinder;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.uma.jmetal.util.front.Front;
 
 /**
  * Created by ajnebro on 23/4/15.
  */
-public class FrontExtremeValues implements ExtremeValuesFinder <Front, List<Double>> {
+public class FrontExtremeValues2 implements ExtremeValuesFinder <Front, double[]> {
 
-  @Override public List<Double> findLowestValues(Front front) {
-    List<Double> minimumValue = new ArrayList<>() ;
-
+  @Override public double[] findLowestValues(Front front) {
     if (front == null) {
       throw new JMetalException("The front is null") ;
     } else if (front.getNumberOfPoints() == 0) {
       throw new JMetalException("The front is empty") ;
     }
 
+    double[] minimumValue = new double[front.getNumberOfPoints()] ;
     int numberOfObjectives = front.getPoint(0).getNumberOfDimensions() ;
 
     for (int i = 0; i < numberOfObjectives; i++) {
-      minimumValue.add(Double.POSITIVE_INFINITY);
+      minimumValue[i] = Double.POSITIVE_INFINITY;
     }
 
     for (int i = 0 ; i < front.getNumberOfPoints(); i++) {
       for (int j = 0; j < numberOfObjectives; j++) {
-        if (front.getPoint(i).getDimensionValue(j) < minimumValue.get(j)) {
-          minimumValue.set(j, front.getPoint(i).getDimensionValue(j));
+        if (front.getPoint(i).getDimensionValue(j) < minimumValue[j]) {
+          minimumValue[j] = front.getPoint(i).getDimensionValue(j);
         }
       }
     }
@@ -38,9 +34,7 @@ public class FrontExtremeValues implements ExtremeValuesFinder <Front, List<Doub
     return minimumValue;
   }
 
-  @Override public List<Double> findHighestValues(Front front) {
-    List<Double> maximumValue = new ArrayList<>() ;
-
+  @Override public double[] findHighestValues(Front front) {
     if (front == null) {
       throw new JMetalException("The front is null") ;
     } else if (front.getNumberOfPoints() == 0) {
@@ -48,15 +42,16 @@ public class FrontExtremeValues implements ExtremeValuesFinder <Front, List<Doub
     }
 
     int numberOfObjectives = front.getPoint(0).getNumberOfDimensions() ;
+    double[] maximumValue = new double[front.getNumberOfPoints()] ;
 
     for (int i = 0; i < numberOfObjectives; i++) {
-      maximumValue.add(Double.NEGATIVE_INFINITY);
+      maximumValue[i] = Double.NEGATIVE_INFINITY;
     }
 
     for (int i = 0 ; i < front.getNumberOfPoints(); i++) {
       for (int j = 0; j < numberOfObjectives; j++) {
-        if (front.getPoint(i).getDimensionValue(j) > maximumValue.get(j)) {
-          maximumValue.set(j, front.getPoint(i).getDimensionValue(j));
+        if (front.getPoint(i).getDimensionValue(j) > maximumValue[j]) {
+          maximumValue[j] = front.getPoint(i).getDimensionValue(j);
         }
       }
     }

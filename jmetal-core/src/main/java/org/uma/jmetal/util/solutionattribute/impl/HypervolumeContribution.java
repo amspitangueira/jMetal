@@ -35,6 +35,9 @@ public class HypervolumeContribution<S extends Solution>
 
   private Hypervolume hypervolume ;
 
+  public HypervolumeContribution() {
+  }
+
   public HypervolumeContribution(Hypervolume hypervolume) {
     this.hypervolume = hypervolume ;
   }

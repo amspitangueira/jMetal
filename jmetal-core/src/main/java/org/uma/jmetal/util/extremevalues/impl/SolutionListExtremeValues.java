@@ -21,7 +21,7 @@ public class SolutionListExtremeValues implements ExtremeValuesFinder <List<Solu
       minimumValue = new ArrayList<>(numberOfObjectives) ;
 
       for (int i = 0; i < numberOfObjectives; i++) {
-        minimumValue.set(i, Double.MAX_VALUE) ;
+        minimumValue.set(i, Double.POSITIVE_INFINITY) ;
       }
 
       for (Solution solution : solutionList) {
@@ -45,7 +45,7 @@ public class SolutionListExtremeValues implements ExtremeValuesFinder <List<Solu
       maximumValue = new ArrayList<>(numberOfObjectives) ;
 
       for (int i = 0; i < numberOfObjectives; i++) {
-        maximumValue.set(i, Double.MIN_VALUE) ;
+        maximumValue.set(i, Double.NEGATIVE_INFINITY) ;
       }
 
       for (Solution solution : solutionList) {
