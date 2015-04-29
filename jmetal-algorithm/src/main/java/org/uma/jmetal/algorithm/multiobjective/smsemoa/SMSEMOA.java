@@ -8,10 +8,10 @@ import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.qualityindicator.impl.Hypervolume;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.HypervolumeContributorComparator;
+import org.uma.jmetal.util.criteria.Criteria;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
-import org.uma.jmetal.util.point.Point;
 import org.uma.jmetal.util.solutionattribute.Ranking;
 import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 import org.uma.jmetal.util.solutionattribute.impl.HypervolumeContribution;
@@ -161,12 +161,12 @@ public class SMSEMOA<S extends Solution> extends AbstractGeneticAlgorithm<S, Lis
         offsets[i] = offset / (maximumValues[i] - minimumValues[i]);
       }
       // STEP 3. Inverse the pareto front. This is needed because the original
-      //metric by Zitzler is for maximization problem
+      // metric by Zitzler is for maximization problem
       Front invertedFront = FrontUtils.getInvertedFront(normalizedFront);
 
       // shift away from origin, so that boundary points also get a contribution > 0
       for (int i = 0; i < invertedFront.getNumberOfPoints(); i++) {
-        Point point = invertedFront.getPoint(i) ;
+        Criteria point = invertedFront.getPoint(i) ;
 
         for (int j = 0; j < point.getNumberOfDimensions(); j++) {
           point.setDimensionValue(j, point.getDimensionValue(j)+ offsets[j]);

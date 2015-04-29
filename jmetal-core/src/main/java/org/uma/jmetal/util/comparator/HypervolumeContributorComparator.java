@@ -26,7 +26,7 @@ import java.util.Comparator;
  * the value the better
  */
 public class HypervolumeContributorComparator implements Comparator<Solution> {
-  private final HypervolumeContribution hvContribution = new HypervolumeContribution() ;
+  private final HypervolumeContribution hvContribution = null;//new HypervolumeContribution() ;
 
   /**
    * Compare two solutions.

@@ -15,6 +15,7 @@ package org.uma.jmetal.util.point.impl;
 
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.uma.jmetal.util.criteria.impl.PointSolution;
 
 import java.util.Arrays;
 

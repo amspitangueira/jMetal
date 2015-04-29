@@ -18,7 +18,8 @@ import org.mockito.Mockito;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.point.Point;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
 
 import java.util.Arrays;
 
@@ -34,7 +35,7 @@ public class ArrayPointTest {
   @Test
   public void shouldConstructAPointOfAGivenDimension() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     double[] pointDimensions = (double[])ReflectionTestUtils.getField(point, "point");
 
@@ -45,14 +46,14 @@ public class ArrayPointTest {
   @Test
   public void shouldConstructAPointFromOtherPointReturnAnIdenticalPoint() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
     point.setDimensionValue(0, 1.0);
     point.setDimensionValue(1, -2.0);
     point.setDimensionValue(2, 45.5);
     point.setDimensionValue(3, -323.234);
     point.setDimensionValue(4, 2344234.23424);
 
-    Point newPoint = new ArrayPoint(point) ;
+    Criteria newPoint = new ArrayCriteria(point) ;
 
     double[] expectedArray = {1.0, -2.0, 45.5, -323.234, 2344234.23424} ;
     double[] newPointDimensions = (double[])ReflectionTestUtils.getField(newPoint, "point");
@@ -64,9 +65,9 @@ public class ArrayPointTest {
 
   @Test (expected = JMetalException.class)
   public void shouldConstructAPointFromANullPointRaiseAnException() {
-    Point point = null ;
+    Criteria point = null ;
 
-    new ArrayPoint(point) ;
+    new ArrayCriteria(point) ;
   }
 
   @Test
@@ -78,7 +79,7 @@ public class ArrayPointTest {
     Mockito.when(solution.getObjective(1)).thenReturn(234.23) ;
     Mockito.when(solution.getObjective(2)).thenReturn(-234.2356) ;
 
-    Point point = new ArrayPoint(solution) ;
+    Criteria point = new ArrayCriteria(solution) ;
 
     double[] expectedArray = {0.2, 234.23, -234.2356} ;
     double[] pointDimensions = (double[])ReflectionTestUtils.getField(point, "point");
@@ -93,13 +94,13 @@ public class ArrayPointTest {
   public void shouldConstructAPointFromANullSolutionRaiseAnException() {
     Solution solution = null ;
 
-    new ArrayPoint(solution) ;
+    new ArrayCriteria(solution) ;
   }
 
   @Test
   public void shouldConstructFromArrayReturnTheCorrectPoint() {
     double[] array = {0.2, 234.23, -234.2356} ;
-    Point point = new ArrayPoint(array) ;
+    Criteria point = new ArrayCriteria(array) ;
 
     double[] storedValues = (double[])ReflectionTestUtils.getField(point, "point");
 
@@ -110,13 +111,13 @@ public class ArrayPointTest {
   public void shouldConstructFromNullArrayRaiseAnException() {
     double[] array = null ;
 
-    new ArrayPoint(array) ;
+    new ArrayCriteria(array) ;
   }
 
   @Test
   public void shouldGetNumberOfDimensionsReturnTheCorrectValue() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     assertEquals(dimension, point.getNumberOfDimensions());
   }
@@ -126,7 +127,7 @@ public class ArrayPointTest {
     int dimension = 5 ;
     double[] array = {1.0, -2.0, 45.5, -323.234, 2344234.23424} ;
 
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
     ReflectionTestUtils.setField(point, "point", array);
 
     assertArrayEquals(array, point.getValues(), EPSILON);
@@ -137,7 +138,7 @@ public class ArrayPointTest {
     int dimension = 5 ;
     double[] array = {1.0, -2.0, 45.5, -323.234, Double.MAX_VALUE} ;
 
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
     ReflectionTestUtils.setField(point, "point", array);
 
     assertEquals(1.0, point.getDimensionValue(0), EPSILON) ;
@@ -150,7 +151,7 @@ public class ArrayPointTest {
   @Test (expected = JMetalException.class)
   public void shouldGetDimensionValueWithInvalidIndexesRaiseAnException() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     point.getDimensionValue(-1) ;
     point.getDimensionValue(5) ;
@@ -159,7 +160,7 @@ public class ArrayPointTest {
   @Test
   public void shouldSetDimensionValueAssignTheCorrectValue() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
     point.setDimensionValue(0, 1.0);
     point.setDimensionValue(1, -2.0);
     point.setDimensionValue(2, 45.5);
@@ -174,7 +175,7 @@ public class ArrayPointTest {
   @Test (expected = JMetalException.class)
   public void shouldSetDimensionValueWithInvalidIndexesRaiseAnException() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     point.setDimensionValue(-1, 2.2) ;
     point.setDimensionValue(5, 2.0) ;
@@ -183,14 +184,14 @@ public class ArrayPointTest {
   @Test
   public void shouldEqualsReturnTrueIfThePointsAreIdentical() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
     point.setDimensionValue(0, 1.0);
     point.setDimensionValue(1, -2.0);
     point.setDimensionValue(2, 45.5);
     point.setDimensionValue(3, -323.234);
     point.setDimensionValue(4, Double.MAX_VALUE);
 
-    Point newPoint = new ArrayPoint(point) ;
+    Criteria newPoint = new ArrayCriteria(point) ;
 
     assertTrue(point.equals(newPoint));
   }
@@ -198,7 +199,7 @@ public class ArrayPointTest {
   @Test
   public void shouldEqualsReturnTrueIfTheTwoPointsAreTheSame() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     assertTrue(point.equals(point));
   }
@@ -207,14 +208,14 @@ public class ArrayPointTest {
   @Test
   public void shouldEqualsReturnFalseIfThePointsAreNotIdentical() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
     point.setDimensionValue(0, 1.0);
     point.setDimensionValue(1, -2.0);
     point.setDimensionValue(2, 45.5);
     point.setDimensionValue(3, -323.234);
     point.setDimensionValue(4, Double.MAX_VALUE);
 
-    Point newPoint = new ArrayPoint(point) ;
+    Criteria newPoint = new ArrayCriteria(point) ;
     newPoint.setDimensionValue(0, -1.0);
 
     assertFalse(point.equals(newPoint));
@@ -223,7 +224,7 @@ public class ArrayPointTest {
   @Test
   public void shouldEqualsReturnFalseIfThePointIsNull() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     assertFalse(point.equals(null));
   }
@@ -231,7 +232,7 @@ public class ArrayPointTest {
   @Test
   public void shouldEqualsReturnFalseIfTheClassIsNotAPoint() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     assertFalse(point.equals(new String("")));
   }
@@ -239,7 +240,7 @@ public class ArrayPointTest {
   @Test
   public void shouldHashCodeReturnTheCorrectValue() {
     int dimension = 5 ;
-    Point point = new ArrayPoint(dimension) ;
+    Criteria point = new ArrayCriteria(dimension) ;
 
     point.setDimensionValue(0, 1.0);
     point.setDimensionValue(1, -2.0);

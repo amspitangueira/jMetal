@@ -15,7 +15,9 @@ package org.uma.jmetal.util.point.impl;
 
 import org.junit.Test;
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.point.Point;
+import org.uma.jmetal.util.criteria.Criteria;
+import org.uma.jmetal.util.criteria.impl.ArrayCriteria;
+import org.uma.jmetal.util.criteria.impl.PointUtils;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,33 +31,33 @@ public class PointUtilsTest {
   @Test(expected = JMetalException.class)
   public void shouldFirstPointToCompareEqualsToNullRaiseAnException() {
     PointUtils utils = new PointUtils() ;
-    Point point = new ArrayPoint(5) ;
+    Criteria point = new ArrayCriteria(5) ;
 
     utils.euclideanDistance(null, point) ;
   }
 
   @Test (expected = JMetalException.class)
   public void shouldSecondPointToCompareEqualsToNullRaiseAnException() {
-    Point point = new ArrayPoint(5) ;
+    Criteria point = new ArrayCriteria(5) ;
 
     PointUtils.euclideanDistance(point, null) ;
   }
 
   @Test (expected = JMetalException.class)
   public void shouldPassingPointsWithDifferentDimensionsRaiseAnException() {
-    Point point1 = new ArrayPoint(5) ;
-    Point point2 = new ArrayPoint(2) ;
+    Criteria point1 = new ArrayCriteria(5) ;
+    Criteria point2 = new ArrayCriteria(2) ;
 
     PointUtils.euclideanDistance(point1, point2) ;
   }
 
   @Test public void shouldCalculatingDistanceOfPointsWithZeroDimensionReturnZero() {
-    PointUtils.euclideanDistance(new ArrayPoint(0), new ArrayPoint(0)) ;
+    PointUtils.euclideanDistance(new ArrayCriteria(0), new ArrayCriteria(0)) ;
   }
 
   @Test public void shouldCalculatingDistanceOfPointsWithOneDimensionReturnTheCorrectValue() {
-    Point point1 = new ArrayPoint(1) ;
-    Point point2 = new ArrayPoint(1) ;
+    Criteria point1 = new ArrayCriteria(1) ;
+    Criteria point2 = new ArrayCriteria(1) ;
 
     point1.setDimensionValue(0, -2.0);
     point2.setDimensionValue(0, +2.0);
@@ -64,8 +66,8 @@ public class PointUtilsTest {
   }
 
   @Test public void shouldCalculatingDistanceOfPointsWithTwoDimensionsReturnTheCorrectValue() {
-    Point point1 = new ArrayPoint(2) ;
-    Point point2 = new ArrayPoint(2) ;
+    Criteria point1 = new ArrayCriteria(2) ;
+    Criteria point2 = new ArrayCriteria(2) ;
 
     point1.setDimensionValue(0, 0.0);
     point1.setDimensionValue(1, 0.0);

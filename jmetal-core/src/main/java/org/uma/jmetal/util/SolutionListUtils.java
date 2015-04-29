@@ -131,6 +131,7 @@ public class SolutionListUtils {
    * @param solutionList        The list of solutions
    * @return A list with the maximum values for each objective
    */
+  /*
   public static List<Double> getMaximumValues(List<Solution> solutionList) {
     List<Double> maximumValue ;
     if ((solutionList == null) || (solutionList.size() == 0)) {
@@ -161,6 +162,7 @@ public class SolutionListUtils {
    * @param solutionList        The list of solutions
    * @return A list with the minimum values for each objective
    */
+  /*
   public static List<Double> getMinimumValues(List<Solution> solutionList) {
     List<Double> minimumValue ;
     if ((solutionList == null) || (solutionList.size() == 0)) {
@@ -184,7 +186,7 @@ public class SolutionListUtils {
 
     return minimumValue;
   }
-
+*/
   /**
    * This method receives a list of non-dominated solutions and maximum and minimum values of the
    * objectives, and returns a the normalized set of solutions.

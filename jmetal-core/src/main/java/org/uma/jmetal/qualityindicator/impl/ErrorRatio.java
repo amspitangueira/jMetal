@@ -16,10 +16,10 @@ package org.uma.jmetal.qualityindicator.impl;
 import org.uma.jmetal.qualityindicator.QualityIndicator;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
+import org.uma.jmetal.util.criteria.Criteria;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.naming.impl.SimpleDescribedEntity;
-import org.uma.jmetal.util.point.Point;
 
 import java.util.List;
 
@@ -75,10 +75,10 @@ public class ErrorRatio extends SimpleDescribedEntity implements QualityIndicato
     double sum = 0;
 
     for (int i = 0; i < front.getNumberOfPoints(); i++) {
-      Point currentPoint = front.getPoint(i);
+      Criteria currentPoint = front.getPoint(i);
       boolean thePointIsInTheParetoFront = false;
       for (int j = 0; j < referenceFront.getNumberOfPoints(); j++) {
-        Point currentParetoFrontPoint = referenceFront.getPoint(j);
+        Criteria currentParetoFrontPoint = referenceFront.getPoint(j);
         boolean found = true;
         for (int k = 0; k < numberOfObjectives; k++) {
           if(currentPoint.getDimensionValue(k) != currentParetoFrontPoint.getDimensionValue(k)){
