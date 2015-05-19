@@ -21,190 +21,169 @@
 
 package org.uma.jmetal.algorithm.multiobjective.mocell.util;
 
-import org.uma.jmetal.solution.Solution;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.math3.util.FastMath;
+import org.uma.jmetal.solution.Solution;
+
+
 /**
  * Class representing neighborhoods for a <code>Solution</code> into a
  * <code>SolutionSet</code>.
  */ 
 public class MOCellNeighborhood<S extends Solution> {    
-  
-  private static int MAXRADIO = 2;
-  
-  /**
-   * Stores the neighborhood.
-   * structure [i] represents a neighborhood for a solution.
-   * structure [i][j] represents a neighborhood with a ratio.
-   * structure [i][j][k] represents a neighbor of a solution.
-   */
-  private int [][][] structure;
 
-  private int solutionSetSize;
-  private int rowSize;
-  
-  /**
-   * Enum type for defining the North, South, East, West, North-West, South-West,
-   * North-East, South-East neighbor.
-   */
-  enum Row {N, S, E, W, NW, SW, NE, SE};
-    
+
+  // 8 possible movements north, south, east, west, northeast, northwest,southeast, southwest
+  // each movement is represented by an array of two positions, first component represents the
+  // movement in the file, second in the column
+  private final int [] north      = {-1,  0};
+  private final int [] south      = { 1 , 0};
+  private final int [] east       = { 0 , 1};
+  private final int [] west       = { 0 ,-1};
+  private final int [] north_east = {-1,  1};
+  private final int [] north_west = {-1, -1};
+  private final int [] south_east = { 1 , 1};
+  private final int [] south_west = { 1 ,-1};
+
+  // two possible neighborhoods: 4 and 8 neighbors
+  private final int [][] neighboorhood4 = {north, south, west, east};
+  private final int [][] neighboorhood8 = {north, south, west, east, north_east, north_west, south_east, south_west};
+
+  private int [][] mesh; // represent the individuals on a rectangular grid  
+  private int rows;
+  private int columns;
+
+
   /**
    * Constructor.
-   * Defines a neighborhood of a given size.
+   * Defines a neighborhood of shape rows x columns (rows x columns must equal solutionSetSize)
+   * @param solutionSetSize The size
+   * @param rows the number of rows
+   * @param columns the number of columns
+   */
+  public MOCellNeighborhood(int solutionSetSize, int rows, int columns) {
+    assert (solutionSetSize > 0 && rows * columns == solutionSetSize);        
+    this.rows = rows;
+    this.columns = columns;
+    this.createMesh();
+  }
+
+
+  /**
+   * Constructor.
+   * Defines a neighborhood for solutionSetSize (it has to have an exact squared root)
    * @param solutionSetSize The size.
    */
-  public MOCellNeighborhood(int solutionSetSize) {            
-    this.solutionSetSize = solutionSetSize;
-    structure = new int[this.solutionSetSize][MAXRADIO][];
-        
-    //For each individual, and different rates the individual has a different 
-    //number of neighborhoods
-    for (int ind = 0; ind < this.solutionSetSize; ind ++) {
-      for (int radio = 0; radio < MAXRADIO; radio ++) {
-        if (radio == 0) {//neighboors whit rate 1
-          structure[ind][radio] = new int[8];
-        } else if (radio == 1) { //neighboors whit rate 2
-          structure[ind][radio] = new int[24];
-        }
+  public MOCellNeighborhood(int solutionSetSize) {
+    assert (solutionSetSize > 0 && hasExactSquaredRoot(solutionSetSize));        
+    this.rows = this.columns = (int) Math.sqrt(solutionSetSize);
+    this.createMesh();
+  }
+
+  
+  /**
+   * Checks whether a value has an exact square root
+   * @param value (we know is bigger than 0)
+   * @return
+   */
+  private boolean hasExactSquaredRoot(int value) {
+    return (value & (value-1)) == 0;
+  }
+
+  /**
+   * Returns the row on the mesh where solution is located
+   * @param solution Represents the location of the solution
+   * @return
+   */
+  private int getRow(int solution) {
+    return solution / this.rows;
+  }
+
+  /**
+   * Returns the column on the mesh where solution is located
+   * @param solution Represents the location of the solution
+   * @return
+   */
+  private int getColumn(int solution) {
+    return solution % this.columns;
+  }
+
+  /**
+   * Returns the neighbor of solution
+   * @param solution Represents the location of the solution
+   * @param neighboor Represents the neighbor we want to get as a shift of solution. The first component
+   * represents the shift on rows, and the second the shift on column
+   * @return
+   */
+  private int getNeighboor(int solution, int [] neighboor) {
+    int r = getRow(solution)    > 0 ? (getRow(solution)    + neighboor[0]) % this.rows    : this.rows-1;
+    int c = getColumn(solution) > 0 ? (getColumn(solution) + neighboor[1]) % this.columns : this.columns-1;
+    return this.mesh[r][c];
+  }
+
+
+  /**
+   * Initializes the mesh of solutions. Each solution is assigned to a row and column within the row
+   */
+  private void createMesh() {
+    // idea: if rows = 5, and columns=3, we need to fill the mesh
+    // as follows
+    // --------
+    //|00-01-02|
+    //|03-04-05|
+    //|06-07-08|
+    //|09-10-11|
+    //|12-13-14|
+    // --------
+
+    mesh = new int[this.rows][this.columns];
+    int solution = 0;
+    for (int row = 0; row < this.rows; row++) {
+      for (int column = 0; column < this.columns; column++) {
+        this.mesh[row][column] = solution++;
       }
     }
-        
-    //Calculate the size of a row
-    rowSize = (int) Math.sqrt((double) this.solutionSetSize);
-
-    //Calculates the neighbors of a individual 
-    for (int ind = 0; ind < this.solutionSetSize; ind++){
-      //rate 1
-      //North neighbors
-      if (ind > rowSize - 1){
-        structure[ind][0][Row.N.ordinal()] = ind - rowSize;
-      } else {
-        structure[ind][0][Row.N.ordinal()] =
-       (ind - rowSize + solutionSetSize) % solutionSetSize;
-      }
-            
-      //East neighbors
-      if  ((ind + 1) % rowSize == 0)
-        structure[ind][0][Row.E.ordinal()] = (ind - (rowSize - 1));
-      else
-        structure[ind][0][Row.E.ordinal()] = (ind + 1);
-
-      //Western neigbors
-      if (ind % rowSize == 0) {
-        structure[ind][0][Row.W.ordinal()] = (ind + (rowSize - 1));
-      } else {
-        structure[ind][0][Row.W.ordinal()] = (ind - 1);
-      }
-
-      //South neigbors
-      structure[ind][0][Row.S.ordinal()] = (ind + rowSize) % solutionSetSize;
-    }                
-        
-    for (int ind = 0; ind < this.solutionSetSize; ind++){
-      structure[ind][0][Row.NE.ordinal()] =
-        structure[structure[ind][0][Row.N.ordinal()]][0][Row.E.ordinal()];
-      structure[ind][0][Row.NW.ordinal()] =
-        structure[structure[ind][0][Row.N.ordinal()]][0][Row.W.ordinal()];
-      structure[ind][0][Row.SE.ordinal()] =
-        structure[structure[ind][0][Row.S.ordinal()]][0][Row.E.ordinal()];
-      structure[ind][0][Row.SW.ordinal()] =
-        structure[structure[ind][0][Row.S.ordinal()]][0][Row.W.ordinal()];
-    }
   }
-    
+
+
   /**
-   * Returns a <code>SolutionSet</code> with the North, Sout, East and West
-   * neighbors solutions of ratio 0 of a given location into a given 
-   * <code>SolutionSet</code>.
-   * @param solutionSet The <code>SolutionSet</code>.
-   * @param location The location.
-   * @return a <code>SolutionSet</code> with the neighbors.
+   * Returns a solutionSet containing the neighbors of a given solution
+   * @param solutionSet From where neighbors will be obtained
+   * @param solution The solution for which the neighbors will be computed
+   * @param neigboorhood The list of neighbors we want to obtain as shift regarding to solution
+   * @return
    */
-  public List<S> getFourNeighbors(List<S> solutionSet, int location){
+  public List<S> getNeigboors(List<S> solutionSet, int solution, int [][] neigboorhood) {
     //SolutionSet that contains the neighbors (to return)
-    List<S> neighbors;
-        
-    //instance the solutionSet to a non dominated li of individuals
-    neighbors = new ArrayList<>(24);
-        
-    //Gets the neighboords N, S, E, W
-    int index;        
-        
-    //North
-    index = structure[location][0][Row.N.ordinal()];
-    neighbors.add(solutionSet.get(index));
-      
-    //South
-    index = structure[location][0][Row.S.ordinal()];
-    neighbors.add(solutionSet.get(index));
+    List<S> neighbors = new ArrayList<>(neigboorhood.length+1);
 
-    //East
-    index = structure[location][0][Row.E.ordinal()];
-    neighbors.add(solutionSet.get(index));
+    for (int [] neighboor : neigboorhood)
+      neighbors.add(solutionSet.get(this.getNeighboor(solution,neighboor)));
 
-    //West
-    index = structure[location][0][Row.W.ordinal()];
-    neighbors.add(solutionSet.get(index));         
-    
-    //Return the list of non-dominated individuals
-    return neighbors;        
+    return neighbors;
   }
-    
+
+
+
   /**
-   * Returns a <code>SolutionSet</code> with the North, Sout, East, West, 
-   * North-West, South-West, North-East and South-East neighbors solutions of
-   * ratio 0 of a given location into a given <code>SolutionSet</code>.
-   * solutions of a given location into a given <code>SolutionSet</code>.
-   * @param population The <code>SolutionSet</code>.
-   * @param individual The individual.
-   * @return a <code>SolutionSet</code> with the neighbors.
+   * Returns the north,south, east, and west solutions of a given solution
+   * @param solutionSet the solution set from where the neighbors are taken
+   * @param solution Represents the position of the solution
+   * 
    */
-  public List<S> getEightNeighbors(List<S> population, int individual){
-    //SolutionSet that contains the neighbors (to return)
-    List<S> neighbors;
+  public List<S> getFourNeighbors(List<S> solutionSet, int solution) {
+    return this.getNeigboors(solutionSet, solution, this.neighboorhood4);
+  }
 
-    //instance the population to a non dominated li of individuals
-    neighbors = new ArrayList<>(24);
-
-    //Gets the neighboords N, S, E, W
-    int index;        
-        
-    //N
-    index = this.structure[individual][0][Row.N.ordinal()];
-    neighbors.add(population.get(index));
-
-    //S
-    index = this.structure[individual][0][Row.S.ordinal()];
-    neighbors.add(population.get(index));
-
-    //E
-    index = this.structure[individual][0][Row.E.ordinal()];
-    neighbors.add(population.get(index));
-
-    //W
-    index = this.structure[individual][0][Row.W.ordinal()];
-    neighbors.add(population.get(index));
-
-    //NE
-    index = this.structure[individual][0][Row.NE.ordinal()];
-    neighbors.add(population.get(index));
-
-    //NW
-    index = this.structure[individual][0][Row.NW.ordinal()];
-    neighbors.add(population.get(index));
-
-    //SE
-    index = this.structure[individual][0][Row.SE.ordinal()];
-    neighbors.add(population.get(index));
-
-    //SW
-    index = this.structure[individual][0][Row.SW.ordinal()];
-    neighbors.add(population.get(index));
-
-
-    //Return the list of non-dominated individuals
-    return neighbors;        
+  /**
+   * Returns the north,south, east, west, northeast, northwest, southeast, and southwest solutions of a given solution
+   * @param solutionSet the solution set from where the neighbors are taken
+   * @param solution Represents the position of the solution
+   * 
+   */
+  public List<S> getEightNeighbors(List<S> solutionSet, int location){
+    return this.getNeigboors(solutionSet,location,this.neighboorhood8);
   }
 }
