@@ -89,7 +89,8 @@ public class MOCellNeighborhood<S extends Solution> {
    * @return
    */
   private boolean hasExactSquaredRoot(int value) {
-    return (value & (value-1)) == 0;
+    //return (value & (value-1)) == 0; // check whether the number is power of two
+	  return (Math.floor(Math.sqrt(value))*Math.floor(Math.sqrt(value))==value);
   }
 
   /**
